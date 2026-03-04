@@ -1,0 +1,180 @@
+Name: Pradeep Lamichhane
+SID: @02967686
+
+CRC Card
+Class: PacketReceiver
+
+Responsibilities:
+Receive high-density transponder packets broadcast from aircraft.
+Timestamp and buffer each received packet.
+Forward valid packets to the PacketParser for decoding.
+Discard malformed, incomplete, or duplicate packets.
+
+Collaborators (if any):
+PacketParser
+
+Assumptions (if any):
+The ground station has a stable network connection for receiving broadcast packets.
+All aircraft follow a standardized transponder packet structure.
+
+CRC Card
+Class: PacketParser
+
+Responsibilities:
+Validate packet format and integrity using checksum verification.
+Decode aircraft ID, aircraft type, position, altitude, speed, and timestamp.
+Convert raw packet data into a structured TransponderPacket object.
+Log or report parsing errors for malformed packets.
+
+Collaborators (if any):
+PacketReceiver
+TransponderPacket
+
+Assumptions (if any):
+Parsing rules are fixed and defined by the ATC authority.
+Packet integrity checks are sufficient to detect transmission errors.
+
+CRC Card
+Class: TransponderPacket
+
+Responsibilities:
+Represent validated aircraft flight data as a structured data object.
+Provide read-only access to decoded packet fields.
+Support equality comparison using aircraft identifier and timestamp.
+Serve as a data transfer object between ingestion and storage components.
+
+Collaborators (if any):
+PacketParser
+Aircraft
+
+Assumptions (if any):
+Each packet represents one aircraft broadcast at a specific moment in time.
+Unit conversions and validation occur before storage.
+
+CRC Card
+Class: Aircraft
+
+Responsibilities:
+Maintain the most recent state of a tracked aircraft.
+Update aircraft information using new TransponderPacket data.
+Store aircraft type, position, altitude, and speed.
+Provide summarized aircraft details for controller queries.
+
+Collaborators (if any):
+TransponderPacket
+AircraftRepository
+
+Assumptions (if any):
+Each aircraft is uniquely identified by a transponder identifier.
+Aircraft state is updated whenever new packet data arrives.
+
+CRC Card
+Class: AircraftRepository
+
+Responsibilities:
+Maintain a collection of all currently tracked aircraft.
+Insert new aircraft records when a new aircraft appears.
+Update existing aircraft records when new packet data arrives.
+Remove inactive aircraft that have not transmitted recently.
+Provide lookup and filtering operations for controller queries.
+
+Collaborators (if any):
+Aircraft
+QueryService
+ThreatDetector
+
+Assumptions (if any):
+Aircraft records are indexed by transponder identifier.
+The repository may be backed by an in-memory store or database.
+
+CRC Card
+Class: DisplayModelBuilder
+
+Responsibilities:
+Generate a display model representing all active aircraft.
+Transform aircraft data into graphical coordinates for rendering.
+Apply altitude, proximity, and visibility filters for display.
+Prepare structured display data for the controller interface.
+
+Collaborators (if any):
+AircraftRepository
+DisplayUpdater
+
+Assumptions (if any):
+The display shows aircraft only within a defined geographic region.
+Aircraft positions are converted into screen coordinates.
+
+CRC Card
+Class: DisplayUpdater
+
+Responsibilities:
+Receive update triggers from the UpdateScheduler.
+Retrieve the latest display model from the DisplayModelBuilder.
+Send updated display data to the controller interface.
+Handle display update errors and report failures.
+
+Collaborators (if any):
+DisplayModelBuilder
+UpdateScheduler
+
+Assumptions (if any):
+The controller interface supports periodic refresh operations.
+Rendering is handled by a separate user interface subsystem.
+
+CRC Card
+Class: ThreatDetector
+
+Responsibilities:
+Analyze aircraft positions and flight vectors for potential conflicts.
+Detect dangerous situations based on altitude and distance thresholds.
+Generate alerts when aircraft violate minimum separation standards.
+Provide a ranked list of potential threats.
+
+Collaborators (if any):
+AircraftRepository
+
+Assumptions (if any):
+Minimum separation standards are defined by aviation safety regulations.
+Threat detection runs after each scheduled system update.
+
+CRC Card
+Class: QueryService
+
+Responsibilities:
+Process controller queries for aircraft information.
+Retrieve aircraft data from the AircraftRepository.
+Format and return aircraft details for display to the controller.
+Support search operations using aircraft identifiers.
+
+Collaborators (if any):
+AircraftRepository
+Aircraft
+
+Assumptions (if any):
+Queries are read-only operations.
+Query results use the most recent stored aircraft data.
+
+CRC Card
+Class: UpdateScheduler
+
+Responsibilities:
+Generate periodic system update events every 10 seconds.
+Trigger display updates through the DisplayUpdater.
+Trigger safety analysis through the ThreatDetector.
+Ensure synchronization of periodic system activities.
+
+Collaborators (if any):
+DisplayUpdater
+ThreatDetector
+
+Assumptions (if any):
+The scheduler uses system time to generate consistent intervals.
+Missed update cycles are logged but do not stop system operation.
+
+Global Assumptions
+Every aircraft transponder broadcasts flight data at least once every 10 seconds.
+The system operates in near real-time with minimal latency.
+Aircraft transponder packets follow a standardized national format.
+The display refresh interval of 10 seconds aligns with controller operational needs.
+Conflict detection thresholds follow aviation safety regulations such as ICAO separation standards.
+Controller queries and threat detection operate on the same refreshed aircraft data snapshot for consistency.
