@@ -1,7 +1,9 @@
 # Development Log-Question 2
+```
 **Name:** Pradeep Lamichhane 
 **Course:** Large Scale Programming (Spring 2026) 
 **Midterm – Question 2**
+```
 ---
 ### Primary References
 1. **Riel, A. J. (1996). *Object-Oriented Design Heuristics*. Addison-Wesley.**

@@ -1,7 +1,9 @@
 # Development Log-Question 1
+```
 **Name:** Pradeep Lamichhane 
 **Course:** Large Scale Programming (Spring 2026) 
 **Midterm – Question 1**
+```
 ---
 ### Primary References
 1. **Java Documentation – Collections Framework**
