@@ -1,8 +1,8 @@
 # Development Log-Question 2
 ```
-**Name:** Pradeep Lamichhane 
-**Course:** Large Scale Programming (Spring 2026) 
-**Midterm – Question 2**
+Name: Pradeep Lamichhane 
+Course: Large Scale Programming (Spring 2026) 
+Midterm – Question 2
 ```
 ---
 ### Primary References
