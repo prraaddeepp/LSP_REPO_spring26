@@ -1,4 +1,4 @@
-# Development Log-Question 1
+# AI_Usage_Report.md
 ```
 Name: Pradeep Lamichhane 
 ```
@@ -62,9 +62,3 @@ Throw an exception if the set is empty.
 ```
 - **Adaptation:** I used Collections.max() and Collections.min() and added checks to throw an exception when the set is empty.
 ---
-### Summary
-- Used ArrayList to store elements  
-- Ensured no duplicates  
-- Implemented all operations returning new sets  
-- Maintained correct formatting and sorting  
-- Followed assignment requirements strictly  
