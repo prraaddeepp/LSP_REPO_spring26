@@ -1,4 +1,4 @@
-My perspective on using AI in programming has changed because at the beginning of the semester, I saw it mainly as a shortcut to get answers quickly. Over time, I realized that AI is more useful as a support tool rather than a replacement for understanding. It can help explain concepts, suggest ideas, and improve code, but it still requires my own thinking to use it correctly.
+My perspective on using AI in programming has changed because at the beginning of the semester, I saw it mainly as a shortcut to get answers quickly. Over time, I have realized that AI is more useful as a support tool rather than a replacement for understanding. It can help explain concepts, suggest ideas, and improve code, but it still requires my own thinking to use it correctly.
 
 Over the semester, I learned that relying too heavily on AI without understanding the logic can be risky. There were times when AI-generated answers were incomplete or incorrect, which showed me the importance of verifying outputs and truly understanding the material. I also learned how AI can speed up learning when used properly, especially for debugging and clarifying difficult topics.
 

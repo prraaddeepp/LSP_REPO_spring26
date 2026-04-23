@@ -15,23 +15,19 @@ addRequest() is unsafe because it calls getNextId() and then adds to the shared 
 Part 2:
 
 Fix A:
-public synchronized int getNextId() { ... }
 
 This fix does not fully solve the concurrency problem. It protects nextId, so duplicate IDs are prevented, but requests is still an unsynchronized ArrayList. Multiple threads can still modify the list at the same time, which may cause data corruption or inconsistent behavior.
 
 Fix B:
-public synchronized void addRequest(String studentName) { ... }
 
 This fix correctly solves the concurrency problem for adding requests. Synchronizing addRequest() ensures that only one thread at a time can get an ID and add the request to the list. This protects both nextId and requests during the full operation.
 
 Fix C:
-public synchronized List<String> getRequests() { ... }
 
 This fix does not solve the concurrency problem. It only synchronizes access when returning the list, but it does not protect getNextId() or requests.add() inside addRequest(). Also, returning the actual list exposes the internal shared list to outside modification.
 
 Part 3:
 
-Answer + Explanation:
 No, getNextId() should not be public. Based on Arthur Riel’s heuristics, classes should hide internal implementation details and expose only necessary behavior. The request ID is an internal detail of RequestManager, so outside classes should not directly call getNextId(). Instead, they should use addRequest(), which represents the meaningful public behavior.
 
 Part 4:
