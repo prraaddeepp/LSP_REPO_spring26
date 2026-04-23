@@ -36,6 +36,8 @@ Description:
 An alternative approach is to use a Lock, such as ReentrantLock, instead of the synchronized keyword. The lock is acquired before accessing the shared resources and released in a finally block to guarantee that the lock is released even if an exception occurs.
 
 Code Snippet:
+
+```java
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
